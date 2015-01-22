@@ -1,0 +1,15 @@
+var fs = require('fs');
+var myNumber = undefined;
+var line = process.argv[2];
+var foo;
+function addNum(callback) {
+        fs.readFile(line, 'utf8', function (err, fileContents) {
+                foo = fileContents.split("\n")
+                myNumber = foo.length - 1;
+                callback()
+        })
+}
+function logMyNumber() {
+        console.log(myNumber);
+}
+addNum(logMyNumber);
