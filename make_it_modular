@@ -1,0 +1,30 @@
+var filepath = process.argv[2];
+var ext = process.argv[3];
+var mymodule = require('./mymodule.js');
+mymodule(filepath, ext, function(err, files) {
+   for (i = 0; i < files.length; i++) {
+      console.log(files[i]);
+   }
+});
+
+//========================MODULE============================
+
+var fs = require('fs');
+var path = require('path');
+module.exports = function(dirname, ext, callback) {
+   var extension = "." + ext;
+   fs.readdir(dirname, function (err, files) {
+        if(err) {
+                return callback(err, null);
+        }
+        else {
+          result = [];
+          files.forEach(function(entry) {
+                if (path.extname(entry) == extension) {
+                        result.push(entry);
+                }
+        });
+        callback(null, result);
+        }
+   });
+};
