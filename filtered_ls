@@ -1,0 +1,13 @@
+var fs = require('fs');
+var path = require('path');
+var filepath = process.argv[2];
+var ext = "." + process.argv[3];
+fs.readdir(filepath, function (err, list) {
+        vary = list.toString().split(",");
+        for (var i = 0; i < vary.length; i++) {
+                if (path.extname(vary[i]) == ext)
+                {
+                        console.log(vary[i]);
+                }
+        }
+})
