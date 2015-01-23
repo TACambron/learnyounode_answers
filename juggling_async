@@ -1,0 +1,40 @@
+var http = require('http');
+var urls = process.argv.slice(2);
+var results = [];
+//console.log(urls.length);
+//console.log(results.length);
+
+for (i = 0; i < urls.length; i++) {
+    results[i] = null;
+    //console.log("null check");
+}
+
+for (i = 0; i < urls.length; i++) {
+  (function(i) {
+    http.get(urls[i], function(res) { 
+        var result = "";        
+        res.setEncoding("utf8");
+        //console.log(urls[i]);
+        res.on("data", function(data) {
+            result += data;
+            //console.log("data check");
+        });
+        res.on("end", function() {
+            results[i] = result;
+            var resCount = 0
+            for (j = 0; j < results.length; j++) {
+                if (results[j] != null) {
+                   resCount++;
+                }
+            }
+            //console.log("counter check");
+            if (resCount == results.length) {
+                console.log(results[0]);
+                console.log(results[1]);
+                console.log(results[2]);
+                //console.log("answer check");
+            }
+    });
+    });
+})(i);
+}
