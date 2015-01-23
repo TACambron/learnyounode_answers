@@ -1,0 +1,18 @@
+var http = require('http');
+var url = process.argv[2];
+var charstr = "";
+var charnum = 0;
+
+http.request(url, function(res) {
+    res.on("data", function(data) {
+        charstr += data;
+        charnum += data.length;
+    });
+    res.on("end", function(end) {
+        console.log(charnum)
+        console.log(charstr)
+    });
+    res.on("error", function(error) {
+        console.error;
+    });
+}).end();
